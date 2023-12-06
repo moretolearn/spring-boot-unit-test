@@ -6,9 +6,11 @@ import static org.mockito.Mockito.when;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -25,12 +27,16 @@ class SpringBootUnitTestApplicationTests {
 	@LocalServerPort
 	private int localPort;
 	
-//	@InjectMocks
-	@Autowired
+	@InjectMocks
 	PersonService personService;
 	
 	@MockBean
 	PersonRepository personRepository;
+	
+	@BeforeEach
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	@DisplayName("Get-Persons")

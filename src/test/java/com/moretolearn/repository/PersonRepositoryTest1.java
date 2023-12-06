@@ -11,12 +11,16 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.moretolearn.model.Person;
 
@@ -24,13 +28,19 @@ import com.moretolearn.model.Person;
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataMongoTest
 //@AutoConfigureDataMongo
-class PersonRepositoryTest {
+class PersonRepositoryTest1 {
 
 	@Autowired
+//	@MockBean
 	private PersonRepository personRepository;
 
 //	@Autowired
 //	private TestEntityManager entityManager;
+	
+//	@BeforeEach
+//	public void setup() {
+//		MockitoAnnotations.initMocks(this);
+//	}
 
 	@Test
 	public void test_savePerson() {
@@ -50,8 +60,9 @@ class PersonRepositoryTest {
 //		List<Person> personList = Arrays.asList(new Person(110, "Ram", 88), new Person(101, "Ram", 88));
 		int size = personRepository.findAll().size();
 		assertEquals(5, size);
-	}
 
+	}
+	
 	@Test
 	public void test_updatePerson() {
 		Person personById = personRepository.findById(120).get();

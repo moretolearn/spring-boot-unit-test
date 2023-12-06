@@ -9,7 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,13 +21,18 @@ import com.moretolearn.model.Person;
 import com.moretolearn.repository.PersonRepository;
 
 @SpringBootTest
-class PersonServiceTest {
+class PersonServiceTest1 {
 
-	@Autowired
+	@InjectMocks
 	PersonService personService;
 
 	@MockBean
 	PersonRepository personRepository;
+	
+	@BeforeEach
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void test_savePerson() {
@@ -46,7 +54,7 @@ class PersonServiceTest {
 		when(personRepository.findAll()).thenReturn(personList);
 		assertEquals(2, personService.getPersons().size());
 	}
-
+	
 	@Test
 	public void test_updatePerson() {
 		Person person = new Person(114, "Ram", 88);
